@@ -7,7 +7,7 @@
 .smores-warning strong{font-size:18px;display:block;margin-bottom:4px}
 .smores-important{border-left:5px solid #a84429;padding-left:18px;background:#fff3e6;border-radius:0 12px 12px 0}
 .smores-important h4{color:#963d25}
-.smores-drawing{width:100%;height:auto;max-width:330px;display:block;margin:10px 0}
+.smores-step{display:block}
 .smores-note{font-size:12px;color:#7e6d60;margin:10px 0 0}
 .smores-calculator{margin-bottom:24px}
 #smores .ingredients{position:sticky}
@@ -27,7 +27,7 @@
 <div class="callout"><strong>Butter note:</strong> Use melted butter, cooled until warm—not hot. No eggs or baking powder.</div>
 <p class="smores-note">For the tiniest baking soda and salt measurements, a precise scale helps. This is an experimental small-batch recipe, not a physically tested result.</p>
 </aside><div class="steps"><div class="heading"><h3>Step by step</h3><button id="sm-reset">Reset progress</button></div><div class="small" id="sm-progress-label">0 of 8 steps done</div><div class="progress"><i id="sm-progress-bar" style="width:0%"></i></div><div id="sm-steps"></div>
-<div class="tip"><h3>For crispy edges and chewy centers</h3><p>Use cooled melted butter, press each dough ball into a ½-inch-thick disc, and take the cookies out when the edges are lightly golden but centers are still soft. Add marshmallows near the end so they stay gooey rather than melting away.</p></div>
+<div class="tip"><h3>For crispy edges and chewy centers</h3><p>Use cooled melted butter, press each dough ball into a ½-inch-thick disc, and take the cookies out when the edges are lightly golden but centers are still soft. Press the marshmallows into the cookie tops <strong>before baking</strong>, keeping them away from the edges.</p></div>
 <p class="source">Small-batch recipe developed from your eggless chocolate chip cookie adjustments. The photograph is illustrative; cookie shape and bake time may vary by oven.</p>
 </div></div></div></section></main><footer><div class="wrap">Kitchen Notes · Your personal recipe shelf ♡</div></footer><script>
 const data=[['milk','Kirkland Ultra-Filtered 2% milk',60,'ml','.25','cup'],['yogurt','Oikos Triple Zero Greek yogurt',60,'g','.25','cup'],['white','White granulated sugar',100,'g','.5','cup'],['brown','Brown sugar, packed',110,'g','.5','cup'],['vanilla','Vanilla extract',5,'ml','1','tsp'],['chocolate','Dark chocolate (70%)',200,'g',null,null],['butter','Unsalted butter',56,'g','4','tbsp'],['flour','All-purpose flour (TOTAL)',120,'g','1','cup'],['cocoa','Unsweetened cocoa powder',12,'g','2','tbsp'],['salt','Salt',null,null,'.5','tsp'],['baking','Baking powder (scant)',null,null,'.25','tsp'],['chips','Chocolate chips',85,'g','.5','cup']];
@@ -63,8 +63,8 @@ const smSteps=[
 ['Mix the wet ingredients', 'Whisk the melted butter with brown and white sugars. Stir in applesauce and vanilla.'],
 ['Make the dough', 'Fold in flour, cornstarch, baking soda, and salt until just combined. Stir in chocolate chips and about two-thirds of the broken graham crackers.'],
 ['CRUCIAL: Flatten each cookie', 'Divide the dough into equal portions. Roll into balls, then <strong>gently press each ball into a thick disc about ½ inch tall</strong>. Keep edges rounded. Do NOT bake as a tall ball, and do not smash paper-thin.'],
-['Start baking', 'Place dough discs several inches apart and bake at <strong>350°F</strong>. Plan on <strong>10–13 minutes total</strong>; start checking early.'],
-['Add marshmallows near the end', 'With about <strong>3–4 minutes remaining</strong>, carefully press most of the mini marshmallows into the centers on top. Add the remaining graham pieces. Keep marshmallows away from the outer edges to prevent burning.'],
+['Add marshmallows before baking', 'Before putting the cookies in the oven, gently press <strong>3–4 mini marshmallows</strong> into the top center of each flattened dough disc. Add the remaining graham cracker pieces. Keep marshmallows away from the edges so they are less likely to melt onto the baking sheet.'],
+['Bake the cookies', 'Place the prepared cookies several inches apart on the baking sheet and bake at <strong>350°F</strong> for approximately <strong>10–13 minutes</strong>, checking early for lightly golden edges. The marshmallows go into the oven with the cookies.'],
 ['Cool for chewy centers', 'Remove when edges are lightly golden and centers still look a little soft. Let cool on the baking sheet for <strong>10 minutes</strong> before moving.']
 ];
 let st={count:3,unit:'us',checked:[],steps:[]};try{const saved=JSON.parse(localStorage.getItem('kitchen-smores-v1')||'{}');if(saved&&typeof saved==='object')Object.assign(st,saved)}catch(e){}
@@ -81,16 +81,13 @@ if(d.range)return frac(d.us*f)+'–'+frac(d.range*f)+' '+d.unit;
 let n=d.us*f,u=d.unit;
 return frac(n)+' '+u+(u==='cup'&&n>1?'s':u==='full sheet'&&n!==1?'s':'')+(st.unit==='us'&&d.g!==null?' ('+dec(d.g*f)+' g)':'');
 }
-function shape(){
-return '<svg class="smores-drawing" viewBox="0 0 340 135" role="img" aria-label="Flatten a dough ball into a thick round disc about half an inch tall"><rect width="340" height="135" rx="16" fill="#f3e3d0"/><ellipse cx="83" cy="103" rx="54" ry="9" fill="#d4ad8c"/><circle cx="83" cy="67" r="36" fill="#b77b4c" stroke="#865231" stroke-width="3"/><circle cx="76" cy="47" r="6" fill="#4a2e21"/><circle cx="94" cy="76" r="7" fill="#4a2e21"/><path d="M150 65h42m-15 -12 15 12 -15 12" stroke="#a84429" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="253" cy="103" rx="66" ry="9" fill="#d4ad8c"/><ellipse cx="253" cy="91" rx="60" ry="22" fill="#b77b4c" stroke="#865231" stroke-width="3"/><circle cx="230" cy="84" r="6" fill="#4a2e21"/><circle cx="269" cy="87" r="6" fill="#4a2e21"/><text x="83" y="124" text-anchor="middle" font-size="11" fill="#704c38">Ball</text><text x="253" y="124" text-anchor="middle" font-size="11" fill="#704c38">½-inch disc</text></svg>';
-}
 function render(){
 $sm('sm-count').value=st.count;
 $sm('sm-yield').textContent='For '+st.count+' medium cookies · Tap to check off';
 $sm('sm-us').setAttribute('aria-pressed',st.unit==='us');
 $sm('sm-metric').setAttribute('aria-pressed',st.unit==='metric');
 $sm('sm-ingredients').innerHTML=base.map(d=>'<li><label><input type="checkbox" data-sm-ingredient="'+d.id+'" '+(st.checked.includes(d.id)?'checked':'')+'><span class="'+(st.checked.includes(d.id)?'cross':'')+'">'+d.label+'</span></label><span class="amount">'+amt(d)+'</span></li>').join('');
-$sm('sm-steps').innerHTML=smSteps.map((s,i)=>'<article class="step '+(i===4?'smores-important':'')+'"><div>'+(i===4?shape():'<span class="number">'+(i+1)+'</span>')+'</div><div><h4>'+(i===4?'⭐ ':'')+s[0]+'</h4><p>'+s[1]+'</p><label class="checkstep"><input type="checkbox" data-sm-step="'+i+'" '+(st.steps.includes(i)?'checked':'')+'>Step complete</label></div></article>').join('');
+$sm('sm-steps').innerHTML=smSteps.map((s,i)=>'<article class="step smores-step '+(i===4?'smores-important':'')+'"><div><h4><span class="number">'+(i+1)+'</span>'+(i===4?'⭐ ':'')+s[0]+'</h4><p>'+s[1]+'</p><label class="checkstep"><input type="checkbox" data-sm-step="'+i+'" '+(st.steps.includes(i)?'checked':'')+'>Step complete</label></div></article>').join('');
 $sm('sm-progress-label').textContent=st.steps.length+' of '+smSteps.length+' steps done';
 $sm('sm-progress-bar').style.width=st.steps.length/smSteps.length*100+'%';
 save();
